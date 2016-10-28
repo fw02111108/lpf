@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #box{
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        #cvs{
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <canvas id="cvs" width="500" height="500"></canvas>
+</div>
+<button id="but">清除画布</button>
+<script>
+    var cvs=document.getElementById("cvs");
+    var ctx=cvs.getContext("2d");
+    var but=document.getElementById("but");
+
+    ctx.save();//保存画布的状态
+    ctx.beginPath();
+    ctx.fillStyle="red";
+//    ctx.translate(100,100);
+    ctx.rotate(30*Math.PI/180);
+    ctx.fillRect(0,0,200,100);
+    ctx.closePath();
+
+    ctx.beginPath();
+//    ctx.rotate(30*Math.PI/180);
+//    ctx.scale(2,2);
+    ctx.strokeRect(100,100,200,100);
+    ctx.closePath();
+
+    ctx.restore();//恢复画布之前保存的状态
+
+    ctx.beginPath();
+    ctx.fillRect(200,200,100,100);
+    ctx.closePath();
+
+    but.onclick=function () {
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+
+    }
+
+
+
+</script>
+</body>
+</html>

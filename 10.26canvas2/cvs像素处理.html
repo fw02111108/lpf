@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #box{
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        #cvs{
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <canvas id="cvs" width="500" height="500"></canvas>
+</div>
+<img id="imgs" src="" alt="">
+<script>
+    var cvs=document.getElementById("cvs");
+    var ctx=cvs.getContext("2d");
+    var imgs=document.getElementById("imgs");
+
+    var img=new Image();
+    img.src="01.jpg";
+    img.onload=function () {
+        ctx.drawImage(img,100,100);
+
+        var imgdata=ctx.getImageData(100,100,100,100);
+        console.log(imgdata.data.length);
+        console.log(imgdata.data);
+
+        for(var i=0;i<imgdata.data.length;i+=4){
+            imgdata.data[i]=255-imgdata.data[i];
+            imgdata.data[i+1]=255-imgdata.data[i+1];
+            imgdata.data[i+2]=255-imgdata.data[i+2];
+            imgdata.data[i+3]=255;
+        }
+
+        ctx.putImageData(imgdata,300,300);
+
+       var imgurl=cvs.toDataURL("image/jpeg",1);
+        imgs.src=imgurl;
+
+
+
+
+    }
+</script>
+</body>
+</html>
